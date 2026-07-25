@@ -17,6 +17,7 @@ import {
 } from 'naive-ui'
 
 const DATA_URL = 'https://gist.githubusercontent.com/fengzhongsikao/3f4920464a59848a07fa8b43eb1dc014/raw/json'
+const API_URL = 'https://api.github.com/gists/3f4920464a59848a07fa8b43eb1dc014'
 const message = useMessage()
 
 const categoryIcons: Record<string, string> = {
@@ -141,15 +142,31 @@ function handleResize() {
 async function fetchNavData() {
   loading.value = true
   loadError.value = false
+
+  // 1. 直连 raw
   try {
     const res = await fetch(DATA_URL)
-    if (!res.ok) throw new Error(`HTTP ${res.status}`)
-    navData.value = await res.json()
-  } catch {
-    loadError.value = true
-  } finally {
-    loading.value = false
-  }
+    if (res.ok) {
+      navData.value = await res.json()
+      loading.value = false
+      return
+    }
+  } catch { /* 直连失败，走 API */ }
+
+  // 2. 通过 GitHub API（支持 CORS）
+  try {
+    const res = await fetch(API_URL)
+    if (res.ok) {
+      const gist = await res.json()
+      const file = Object.values(gist.files)[0] as { content: string }
+      navData.value = JSON.parse(file.content)
+      loading.value = false
+      return
+    }
+  } catch { /* API 也失败 */ }
+
+  loadError.value = true
+  loading.value = false
 }
 
 onMounted(async () => {
