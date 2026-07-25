@@ -1,41 +1,38 @@
-# windnav
+# 风起导航
 
-This template should help get you started developing with Vue 3 in Vite.
+一个基于 Vue 3 + Vite + Naive UI 构建的个人导航站，数据通过 GitHub Gist API 动态获取。
 
-## Recommended IDE Setup
+![风起导航](images/iShot_2026-07-25_14.54.00.png)
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+## 技术栈
 
-## Recommended Browser Setup
+- **Vue 3** + Composition API + TypeScript
+- **Vite 8** 构建工具
+- **Naive UI** 组件库
+- **Font Awesome** 图标库
+- **Bun** 包管理器
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+## 功能特点
 
-## Type Support for `.vue` Imports in TS
+- 网站分类卡片式展示
+- 搜索过滤功能
+- 桌面端/移动端自适应布局
+- 侧边栏分类导航
+- 链接一键复制
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
+## 项目启动
 
 ```sh
 bun install
 ```
 
-### Compile and Hot-Reload for Development
+### 开发模式
 
 ```sh
 bun dev
 ```
 
-### Type-Check, Compile and Minify for Production
+### 构建生产版本
 
 ```sh
 bun run build

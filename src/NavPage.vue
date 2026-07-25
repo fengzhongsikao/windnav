@@ -168,7 +168,8 @@ onUnmounted(() => {
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
             </svg>
           </button>
-          <span class="top-title">风起导航</span>
+          <img class="top-logo" src="/xiao.webp" alt="logo" />
+        <span class="top-title">风起导航</span>
           <span class="top-stats">已收录 {{ totalSites }} 个网站</span>
           <a class="github-link" href="https://github.com/fengzhongsikao/windnav" target="_blank" title="GitHub">
             <font-awesome-icon :icon="['fab', 'github']" />
@@ -369,6 +370,13 @@ body {
 
 .hamburger-btn:hover {
   background: #f0f0f0;
+}
+
+.top-logo {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  flex-shrink: 0;
 }
 
 .top-title {
