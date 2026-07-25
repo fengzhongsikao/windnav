@@ -36,6 +36,7 @@ import {
   faImages,
   faDatabase,
   faFolder,
+  faStar,
 } from '@fortawesome/free-solid-svg-icons'
 import App from './App.vue'
 
@@ -45,7 +46,7 @@ library.add(
   faEnvelope, faLanguage, faBook, faBolt, faPalette,
   faIcons, faNoteSticky, faRobot, faCode, faGlobe, faSearch,
   faBlog, faCloud, faWrench, faBuilding, faFilm, faToolbox,
-  faLightbulb, faUnlock, faImages, faDatabase, faFolder,
+  faLightbulb, faUnlock, faImages, faDatabase, faFolder, faStar,
 )
 
 const app = createApp(App)

@@ -1,4 +1,111 @@
 export const navData: Record<string, { n: string; u: string; d: string; i: string }[]> = {
+  "推荐网站": [
+    {
+      "n": "放屁音乐",
+      "u": "https://www.fangpi.net/",
+      "d": "在线听歌，免费音乐网站，支持搜索和播放。",
+      "i": "https://www.fangpi.net/favicon.ico"
+    },
+    {
+      "n": "观景 GYING",
+      "u": "https://www.xn--wcv59z.com/",
+      "d": "影视资源下载，在线解析，看电影首选。",
+      "i": "https://www.xn--wcv59z.com/favicon.png"
+    },
+    {
+      "n": "DeepSeek",
+      "u": "https://chat.deepseek.com/",
+      "d": "免费AI助手，编程写作样样精通。",
+      "i": "https://fe-static.deepseek.com/chat/favicon.svg"
+    },
+    {
+      "n": "大作",
+      "u": "https://www.bigbigwork.com/",
+      "d": "设计师灵感搜索，聚合全球知名设计网站。",
+      "i": "https://xcx.bigbigwork.com/pimg/favicon.ico"
+    },
+    {
+      "n": "123云盘",
+      "u": "https://www.123pan.com/",
+      "d": "免登录下载，不限速的免费网盘。",
+      "i": "https://statics.123957.com/static/favicon.ico"
+    },
+    {
+      "n": "GitHub",
+      "u": "https://github.com/",
+      "d": "全球最大开源社区，程序员必备。",
+      "i": "https://github.com/favicon.ico"
+    },
+    {
+      "n": "Cobalt",
+      "u": "https://cobalt.tools/",
+      "d": "免费下载各大平台在线视频，高清无水印。",
+      "i": "https://cobalt.tools/favicon.png"
+    },
+    {
+      "n": "Remove.photos",
+      "u": "https://remove.photos/zh-cn/",
+      "d": "AI一键抠图，免费下载高清透明图。",
+      "i": "https://remove.photos/favicon.ico"
+    }
+  ],
+  "个人博客": [
+    {
+      "n": "雨祁小窝",
+      "u": "https://yqamm.cc.cd/",
+      "d": "生命绚烂，别被黑暗压垮。",
+      "i": "https://yqamm.cc.cd/_astro/avatar.DsloLJ2B_Z2ceESW.webp"
+    },
+    {
+      "n": "WindStart",
+      "u": "https://blog.windstart.top",
+      "d": "风起的博客",
+      "i": "https://blog.windstart.top/_astro/xiao.DZR3cwiW_1XI6Uv.webp"
+    },
+    {
+      "n": "Rao's Blog",
+      "u": "https://blog.shuichanga.cn",
+      "d": "分享建筑行业设计资源、生活随笔！模型贴图,D5,Lumion,SketchUp,Photoshop,SU插件,破解汉化版",
+      "i": "https://img.450329089.xyz/PicGo/R-favicon.ico"
+    },
+    {
+      "n": "LOVE",
+      "u": "https://love.shuichanga.cn",
+      "d": "免费开源的静态情侣网站，一键0成本部署到多种静态服务器平台。维格云表格做为后端",
+      "i": "https://love.shuichanga.cn/favicon.ico"
+    },
+    {
+      "n": "Liutao博客",
+      "u": "https://www.liutao91.cn/",
+      "d": "个人博客，SketchUp软件、模型、插件",
+      "i": "/icon/lt.png"
+    },
+    {
+      "n": "中医之路",
+      "u": "https://doctor.shuichanga.cn",
+      "d": "自学中医笔记，抄录中医经方，原文",
+      "i": "https://img.rao.de5.net/PicGo/20260403133043588.png"
+    },
+    {
+      "n": "乐软博客",
+      "u": "https://www.isharepc.com/",
+      "d": "阿刚同学的博客，分享破解软件的良心博客",
+      "i": "https://www.isharepc.com/wp-content/themes/happysoft/favicon.ico"
+    },
+    {
+      "n": "小小艺境",
+      "u": "https://art.shuichanga.cn/",
+      "d": "小小画家的个人作品展示画廊",
+      "i": "https://art.shuichanga.cn/favicon.svg"
+    },
+    {
+      "n": "水常主页",
+      "u": "https://home.shuichanga.cn",
+      "d": "个人主页",
+      "i": "https://home.shuichanga.cn/head.png"
+    },
+
+  ],
   "AI对话": [
     {
       "n": "ChatGPT",
@@ -205,56 +312,6 @@ export const navData: Record<string, { n: string; u: string; d: string; i: strin
       "u": "https://hf-mirror.com/",
       "d": "公益项目，huggingface的镜像站",
       "i": "https://hf-mirror.com/favicon.ico"
-    }
-  ],
-  "个人博客": [
-    {
-      "n": "Rao's Blog",
-      "u": "https://blog.shuichanga.cn",
-      "d": "分享建筑行业设计资源、生活随笔！模型贴图,D5,Lumion,SketchUp,Photoshop,SU插件,破解汉化版",
-      "i": "https://img.450329089.xyz/PicGo/R-favicon.ico"
-    },
-    {
-      "n": "LOVE",
-      "u": "https://love.shuichanga.cn",
-      "d": "免费开源的静态情侣网站，一键0成本部署到多种静态服务器平台。维格云表格做为后端",
-      "i": "https://love.shuichanga.cn/favicon.ico"
-    },
-    {
-      "n": "Liutao博客",
-      "u": "https://www.liutao91.cn/",
-      "d": "个人博客，SketchUp软件、模型、插件",
-      "i": "/icon/lt.png"
-    },
-    {
-      "n": "中医之路",
-      "u": "https://doctor.shuichanga.cn",
-      "d": "自学中医笔记，抄录中医经方，原文",
-      "i": "https://img.rao.de5.net/PicGo/20260403133043588.png"
-    },
-    {
-      "n": "乐软博客",
-      "u": "https://www.isharepc.com/",
-      "d": "阿刚同学的博客，分享破解软件的良心博客",
-      "i": "https://www.isharepc.com/wp-content/themes/happysoft/favicon.ico"
-    },
-    {
-      "n": "小小艺境",
-      "u": "https://art.shuichanga.cn/",
-      "d": "小小画家的个人作品展示画廊",
-      "i": "https://art.shuichanga.cn/favicon.svg"
-    },
-    {
-      "n": "水常主页",
-      "u": "https://home.shuichanga.cn",
-      "d": "个人主页",
-      "i": "https://home.shuichanga.cn/head.png"
-    },
-    {
-      "n": "WindStart",
-      "u": "https://blog.windstart.top",
-      "d": "风起的博客",
-      "i": "https://blog.windstart.top/_astro/xiao.DZR3cwiW_1XI6Uv.webp"
     }
   ],
   "云服务器": [

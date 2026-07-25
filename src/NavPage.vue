@@ -16,6 +16,7 @@ import {
 import { navData } from './data/navData'
 
 const categoryIcons: Record<string, string> = {
+  '推荐网站': 'star',
   'AI产品线': 'robot',
   '个人博客': 'blog',
   '云上平台': 'cloud',
