@@ -16,25 +16,10 @@ import {
   useMessage,
 } from 'naive-ui'
 
-const DATA_URL = 'https://gist.githubusercontent.com/fengzhongsikao/3f4920464a59848a07fa8b43eb1dc014/raw/json'
-const API_URL = 'https://api.github.com/gists/3f4920464a59848a07fa8b43eb1dc014'
+const DATA_URL = 'https://api.github.com/gists/3f4920464a59848a07fa8b43eb1dc014'
 const message = useMessage()
 
-const categoryIcons: Record<string, string> = {
-  '推荐网站': 'star',
-  'AI产品线': 'robot',
-  '个人博客': 'blog',
-  '云上平台': 'cloud',
-  '在线工具': 'wrench',
-  '建筑网站': 'building',
-  '影视在线': 'film',
-  '杂项工具': 'toolbox',
-  '灵感图库': 'lightbulb',
-  '破解资源': 'unlock',
-  '素材网站': 'images',
-  '网站相关': 'globe',
-  '网络存储': 'database',
-}
+const categoryIcons = ref<Record<string, string>>({})
 
 interface SiteItem {
   n: string
@@ -143,30 +128,23 @@ async function fetchNavData() {
   loading.value = true
   loadError.value = false
 
-  // 1. 直连 raw
   try {
     const res = await fetch(DATA_URL)
-    if (res.ok) {
-      navData.value = await res.json()
-      loading.value = false
-      return
+    if (!res.ok) {
+      throw new Error(`HTTP ${res.status}`)
     }
-  } catch { /* 直连失败，走 API */ }
-
-  // 2. 通过 GitHub API（支持 CORS）
-  try {
-    const res = await fetch(API_URL)
-    if (res.ok) {
-      const gist = await res.json()
-      const file = Object.values(gist.files)[0] as { content: string }
-      navData.value = JSON.parse(file.content)
-      loading.value = false
-      return
+    const gistData = await res.json()
+    const rawContent = gistData.files?.json?.content
+    if (!rawContent) {
+      throw new Error('Gist 中未找到数据文件')
     }
-  } catch { /* API 也失败 */ }
-
-  loadError.value = true
-  loading.value = false
+    navData.value = JSON.parse(rawContent)
+  } catch (e) {
+    console.error('数据加载失败:', e)
+    loadError.value = true
+  } finally {
+    loading.value = false
+  }
 }
 
 onMounted(async () => {
