@@ -10,10 +10,14 @@ import {
   NGrid,
   NGi,
   NTag,
-  NMessageProvider,
   NAvatar,
+  NSpin,
+  NButton,
+  useMessage,
 } from 'naive-ui'
-import { navData } from './data/navData'
+
+const DATA_URL = 'https://gist.githubusercontent.com/fengzhongsikao/3f4920464a59848a07fa8b43eb1dc014/raw/json'
+const message = useMessage()
 
 const categoryIcons: Record<string, string> = {
   '推荐网站': 'star',
@@ -44,15 +48,18 @@ const sectionRefs = ref<HTMLElement[]>([])
 const collapsed = ref(false)
 const mobileSidebarOpen = ref(false)
 const isMobile = ref(false)
+const loading = ref(true)
+const loadError = ref(false)
+const navData = ref<Record<string, SiteItem[]>>({})
 
 const gridCols = computed(() => (isMobile.value ? 1 : 4))
 
-const categories = Object.keys(navData)
+const categories = computed(() => Object.keys(navData.value))
 
 const totalSites = computed(() => {
   let count = 0
-  for (const cat of categories) {
-    count += navData[cat]?.length ?? 0
+  for (const cat of categories.value) {
+    count += navData.value[cat]?.length ?? 0
   }
   return count
 })
@@ -60,11 +67,11 @@ const totalSites = computed(() => {
 const filteredCategories = computed(() => {
   const query = searchQuery.value.trim().toLowerCase()
   if (!query) {
-    return categories.map((cat) => ({ name: cat, links: navData[cat] as SiteItem[] }))
+    return categories.value.map((cat) => ({ name: cat, links: navData.value[cat] as SiteItem[] }))
   }
   const result: { name: string; links: SiteItem[] }[] = []
-  for (const cat of categories) {
-    const items = navData[cat] as SiteItem[]
+  for (const cat of categories.value) {
+    const items = navData.value[cat] as SiteItem[]
     const matched = items.filter(
       (item) =>
         item.n.toLowerCase().includes(query) ||
@@ -116,14 +123,39 @@ function handleImgError(e: Event) {
   img.style.display = 'none'
 }
 
+async function copyLink(e: Event, url: string) {
+  e.stopPropagation()
+  try {
+    await navigator.clipboard.writeText(url)
+    message.success('链接已复制')
+  } catch {
+    message.error('复制失败')
+  }
+}
+
 function handleResize() {
   isMobile.value = window.innerWidth < 768
   if (!isMobile.value) mobileSidebarOpen.value = false
 }
 
-onMounted(() => {
+async function fetchNavData() {
+  loading.value = true
+  loadError.value = false
+  try {
+    const res = await fetch(DATA_URL)
+    if (!res.ok) throw new Error(`HTTP ${res.status}`)
+    navData.value = await res.json()
+  } catch {
+    loadError.value = true
+  } finally {
+    loading.value = false
+  }
+}
+
+onMounted(async () => {
   handleResize()
   window.addEventListener('resize', handleResize)
+  fetchNavData()
 })
 
 onUnmounted(() => {
@@ -132,8 +164,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <NMessageProvider>
-    <NLayout class="app-layout">
+  <NLayout class="app-layout">
       <!-- Top header -->
       <NLayoutHeader class="top-header" bordered>
         <div class="top-header-inner">
@@ -144,6 +175,9 @@ onUnmounted(() => {
           </button>
           <span class="top-title">风起导航</span>
           <span class="top-stats">已收录 {{ totalSites }} 个网站</span>
+          <a class="github-link" href="https://github.com/fengzhongsikao/windnav" target="_blank" title="GitHub">
+            <font-awesome-icon :icon="['fab', 'github']" />
+          </a>
         </div>
       </NLayoutHeader>
 
@@ -186,6 +220,16 @@ onUnmounted(() => {
 
         <!-- Content -->
         <NLayoutContent class="main-content">
+          <div v-if="loading" class="loading-state">
+            <NSpin size="large" />
+          </div>
+
+          <div v-else-if="loadError" class="error-state">
+            <p>数据加载失败</p>
+            <NButton type="primary" @click="fetchNavData">重新加载</NButton>
+          </div>
+
+          <template v-else>
           <div class="search-section">
             <NInput
               v-model:value="searchQuery"
@@ -251,11 +295,15 @@ onUnmounted(() => {
                       <span class="site-name">{{ site.n }}</span>
                       <span class="site-desc">{{ site.d }}</span>
                     </div>
+                    <button class="copy-btn" @click="(e) => copyLink(e, site.u)" title="复制链接">
+                      <font-awesome-icon icon="copy" />
+                    </button>
                   </div>
                 </NCard>
               </NGi>
             </NGrid>
           </div>
+          </template>
         </NLayoutContent>
       </NLayout>
     </NLayout>
@@ -280,7 +328,6 @@ onUnmounted(() => {
         </button>
       </div>
     </div>
-  </NMessageProvider>
 </template>
 
 <style>
@@ -341,6 +388,19 @@ body {
   font-size: 12px;
   color: #999;
   white-space: nowrap;
+}
+
+.github-link {
+  display: flex;
+  align-items: center;
+  color: #555;
+  font-size: 20px;
+  margin-left: auto;
+  transition: color 0.2s;
+}
+
+.github-link:hover {
+  color: #000;
 }
 
 /* Layout body */
@@ -541,10 +601,43 @@ body {
   text-overflow: ellipsis;
 }
 
+.copy-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  color: #bbb;
+  cursor: pointer;
+  font-size: 13px;
+  transition: all 0.15s;
+}
+
+.copy-btn:hover {
+  background: #f0f0f0;
+  color: #2080f0;
+}
+
 .empty-state {
   text-align: center;
   padding: 80px 0;
   color: #999;
+  font-size: 16px;
+}
+
+.loading-state {
+  text-align: center;
+  padding: 120px 0;
+}
+
+.error-state {
+  text-align: center;
+  padding: 80px 0;
+  color: #e74c3c;
   font-size: 16px;
 }
 

@@ -1,7 +1,10 @@
 <script setup lang="ts">
+import { NMessageProvider } from 'naive-ui'
 import NavPage from './NavPage.vue'
 </script>
 
 <template>
-  <NavPage />
+  <NMessageProvider>
+    <NavPage />
+  </NMessageProvider>
 </template>
