@@ -17,6 +17,7 @@ import {
 } from 'naive-ui'
 import fallbackIcon from '../images/tudou.png'
 
+const FALLBACK_ICON_URL = fallbackIcon
 const DATA_URL = 'https://api.github.com/gists/3f4920464a59848a07fa8b43eb1dc014'
 const message = useMessage()
 
@@ -100,12 +101,9 @@ function openLink(url: string) {
 }
 
 function getFaviconUrl(icon: string): string {
-  if (!icon) return ''
-  if (icon.startsWith('http')) return icon
-  return ''
+  if (icon && icon.startsWith('http')) return icon
+  return FALLBACK_ICON_URL
 }
-
-const FALLBACK_ICON_URL = fallbackIcon
 
 function handleImgError(e: Event) {
   const img = e.target as HTMLImageElement
