@@ -15,6 +15,7 @@ import {
   NButton,
   useMessage,
 } from 'naive-ui'
+import fallbackIcon from '../images/tudou.png'
 
 const DATA_URL = 'https://api.github.com/gists/3f4920464a59848a07fa8b43eb1dc014'
 const message = useMessage()
@@ -104,9 +105,16 @@ function getFaviconUrl(icon: string): string {
   return ''
 }
 
+const FALLBACK_ICON_URL = fallbackIcon
+
 function handleImgError(e: Event) {
   const img = e.target as HTMLImageElement
-  img.style.display = 'none'
+  if (img.dataset.fallbackApplied) {
+    img.style.display = 'none'
+    return
+  }
+  img.dataset.fallbackApplied = '1'
+  img.src = FALLBACK_ICON_URL
 }
 
 async function copyLink(e: Event, url: string) {
@@ -283,7 +291,7 @@ onUnmounted(() => {
                         referrerpolicy="no-referrer"
                         @error="handleImgError"
                       />
-                      <NAvatar v-else :size="32" round class="site-avatar">
+                      <NAvatar v-else :size="48" round class="site-avatar">
                         {{ site.n.charAt(0) }}
                       </NAvatar>
                     </div>
@@ -562,21 +570,21 @@ body {
 
 .site-icon-wrap {
   flex-shrink: 0;
-  width: 32px;
-  height: 32px;
+  width: 48px;
+  height: 48px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .site-icon {
-  width: 24px;
-  height: 24px;
+  width: 48px;
+  height: 48px;
   object-fit: contain;
 }
 
 .site-avatar {
-  font-size: 14px;
+  font-size: 18px;
   font-weight: 600;
 }
 
